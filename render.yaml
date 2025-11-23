@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: cloud-appointment
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    plan: free
+    autoDeploy: true
+
+databases:
+  - name: cloud-db
+    plan: free
