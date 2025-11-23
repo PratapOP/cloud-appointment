@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="brand">Patient Dashboard</div>
+    <div class="nav-links">
+        <a href="/book">Book Appointment</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="section-title">Your Appointments</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for cat, msg in messages %}
+            <div class="flash {{ cat }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="card-container">
+        {% for a in appointments %}
+        <div class="card">
+            <h3>Doctor: {{ a.doctor_name }}</h3>
+            <p><b>Date:</b> {{ a.date }}</p>
+            <p><b>Time:</b> {{ a.time }}</p>
+            <p><b>Symptoms:</b> {{ a.symptoms }}</p>
+            <p><b>Status:</b> {{ a.status }}</p>
+            {% if a.issue %}
+            <p><b>Issue:</b> {{ a.issue }}</p>
+            {% endif %}
+        </div>
+        {% else %}
+        <p>No appointments yet. <a href="/book">Book now</a></p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

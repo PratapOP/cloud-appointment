@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="brand">Admin Panel</div>
+    <div class="nav-links">
+        <a href="/admin/doctors">Doctors</a>
+        <a href="/admin/patients">Patients</a>
+        <a href="/admin">All Appointments</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="section-title">All Appointments</h2>
+
+    <div class="card-container">
+        {% for a in appointments %}
+        <div class="card">
+            <h3>{{ a.doctor_name }}</h3>
+            <p><b>Patient ID:</b> {{ a.user_id }}</p>
+            <p><b>Date:</b> {{ a.date }} | <b>Time:</b> {{ a.time }}</p>
+            <p><b>Symptoms:</b> {{ a.symptoms }}</p>
+            <p><b>Status:</b> {{ a.status }}</p>
+            {% if a.issue %}<p><b>Issue:</b> {{ a.issue }}</p>{% endif %}
+        </div>
+        {% else %}
+        <p>No appointments found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

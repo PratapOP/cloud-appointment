@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Patients</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="brand">Admin — Patients</div>
+    <div class="nav-links">
+        <a href="/admin">Home</a>
+        <a href="/admin/doctors">Doctors</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="section-title">Patients</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for cat, msg in messages %}
+            <div class="flash {{ cat }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Add patient -->
+    <div class="panel">
+        <h3>Add Patient</h3>
+        <form method="post" action="/admin/patients/add" class="grid-form">
+            <input name="username" placeholder="Username" required>
+            <input name="password" placeholder="Password" required>
+            <button class="btn primary" type="submit">Add Patient</button>
+        </form>
+    </div>
+
+    <!-- Patients list -->
+    <div class="card-container">
+        {% for p in patients %}
+        <div class="card">
+            <h3>{{ p.username }}</h3>
+            <p><b>Role:</b> {{ p.role }}</p>
+
+            <div class="admin-btns">
+                <a class="btn secondary" href="/admin/patients/edit/{{ p.id }}">Edit</a>
+
+                <form method="post" action="/admin/patients/delete/{{ p.id }}" style="display:inline;">
+                    <button class="btn danger" type="submit" onclick="return confirm('Delete patient?')">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <p>No patients found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

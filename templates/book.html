@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="brand">Book Appointment</div>
+    <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="form-container">
+    <h2>Book Appointment</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for cat, msg in messages %}
+            <div class="flash {{ cat }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="post">
+        <label>Select Doctor</label>
+        <select name="doctor_id" required>
+            {% for d in doctors %}
+            <option value="{{ d.id }}">{{ d.name }} — {{ d.speciality or 'General' }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Select Date</label>
+        <input type="date" name="date" required>
+
+        <label>Select Time</label>
+        <input type="time" name="time" required>
+
+        <label>Select Symptoms (hold Ctrl/Cmd to select multiple)</label>
+        <select name="symptoms" multiple class="multi-select">
+            {% for s in symptoms %}
+            <option value="{{ s }}">{{ s }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Additional Issue (optional)</label>
+        <textarea name="issue" rows="3" placeholder="Describe your problem (optional)"></textarea>
+
+        <button class="btn primary" type="submit">Book Appointment</button>
+    </form>
+</div>
+
+</body>
+</html>

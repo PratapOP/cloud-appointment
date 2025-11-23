@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Patient</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="navbar">
+    <div class="brand">Edit Patient</div>
+    <div class="nav-links">
+        <a href="/admin/patients">Back</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="form-container">
+    <h2>Edit Patient</h2>
+    <form method="post">
+        <label>Username</label>
+        <input name="username" value="{{ patient.username }}" required>
+        <label>New Password (leave blank to keep)</label>
+        <input name="password" placeholder="New password (optional)">
+        <button class="btn primary" type="submit">Save</button>
+    </form>
+</div>
+</body>
+</html>

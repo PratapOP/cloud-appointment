@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Doctors</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="brand">Admin — Doctors</div>
+    <div class="nav-links">
+        <a href="/admin">Home</a>
+        <a href="/admin/patients">Patients</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="section-title">Doctors</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for cat, msg in messages %}
+            <div class="flash {{ cat }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Add doctor form -->
+    <div class="panel">
+        <h3>Add Doctor</h3>
+        <form method="post" action="/admin/doctors/add" class="grid-form">
+            <input name="name" placeholder="Doctor Name" required>
+            <input name="speciality" placeholder="Speciality">
+            <input name="experience" placeholder="Experience (e.g., 5 years)">
+            <button class="btn primary" type="submit">Add Doctor</button>
+        </form>
+    </div>
+
+    <!-- Doctors list -->
+    <div class="card-container">
+        {% for d in doctors %}
+        <div class="card">
+            <h3>{{ d.name }}</h3>
+            <p><b>Speciality:</b> {{ d.speciality or 'N/A' }}</p>
+            <p><b>Experience:</b> {{ d.experience or 'N/A' }}</p>
+
+            <div class="admin-btns">
+                <a class="btn secondary" href="/admin/doctors/edit/{{ d.id }}">Edit</a>
+
+                <form method="post" action="/admin/doctors/delete/{{ d.id }}" style="display:inline;">
+                    <button class="btn danger" type="submit" onclick="return confirm('Delete doctor?')">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <p>No doctors found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

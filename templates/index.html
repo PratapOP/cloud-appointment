@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cloud Appointment Booking</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="brand">Cloud Appointment</div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        {% if session.user_id %}
+            <a href="/dashboard">Dashboard</a>
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="hero">
+    <h1>Book Appointments Easily</h1>
+    <p>Secure, cloud-ready appointment booking for patients and doctors.</p>
+    <div class="hero-btns">
+        <a class="btn primary" href="/login">Login</a>
+        <a class="btn secondary" href="/register">Register</a>
+    </div>
+</div>
+
+</body>
+</html>
